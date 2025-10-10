@@ -1,0 +1,91 @@
+CREATE DATABASE bdstockflow;
+USE bdstockflow;
+
+
+
+-- Empresas
+CREATE TABLE empresa (
+    id_empresa INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    cnpj VARCHAR(18) UNIQUE NOT NULL,
+    nome_fantasia VARCHAR(50) NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    cep VARCHAR(10) NOT NULL,
+    endereco VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    bairro VARCHAR(50) NOT NULL
+) ENGINE=INNODB;
+
+-- Funcionários
+CREATE TABLE funcionario (
+    id_funcionario INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    tipo_usuario INT NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    cod_empresa INT,
+    FOREIGN KEY (cod_empresa) REFERENCES empresa(id_empresa) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
+-- Veículos
+CREATE TABLE veiculo (
+    id_veiculo INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    placa VARCHAR(7) NOT NULL UNIQUE,
+    cor VARCHAR(15),
+    fabricante VARCHAR(20),
+    carroceria VARCHAR(15),
+    statusveiculo VARCHAR(15),
+    modelo VARCHAR(50),
+    tipo VARCHAR(50),
+    valor DECIMAL(10,2),
+    ano INT,
+    custos_extra DECIMAL(10,2),
+    cod_empresa INT,
+   FOREIGN KEY (cod_empresa) REFERENCES empresa(id_empresa) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Estoque
+CREATE TABLE estoque (
+    id_estoque INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    cod_automovel INT,
+    cod_empresa INT,
+    FOREIGN KEY (cod_automovel) REFERENCES veiculo(id_veiculo) ON DELETE CASCADE,
+    FOREIGN KEY (cod_empresa) REFERENCES empresa(id_empresa) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Vendas
+CREATE TABLE venda (
+    id_venda INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    cod_usuario INT NOT NULL,
+    valor_entrada DECIMAL(10,2) NOT NULL,
+    valor_venda DECIMAL(10,2) NOT NULL,
+    cod_automovel INT NOT NULL,
+    cod_cli INT NOT NULL,
+    data_venda DATE NOT NULL,
+    FOREIGN KEY (cod_usuario) REFERENCES funcionario(id_funcionario) ON DELETE CASCADE,
+    FOREIGN KEY (cod_automovel) REFERENCES veiculo(id_veiculo) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Imagens de Veículos
+CREATE TABLE imagem_veiculo (
+    id_imagem INT AUTO_INCREMENT PRIMARY KEY,
+    cod_veiculo INT,
+    caminho_imagem VARCHAR(255) NOT NULL,
+    FOREIGN KEY (cod_veiculo) REFERENCES veiculo(id_veiculo) ON DELETE CASCADE
+) ENGINE=INNODB;
+
+CREATE TABLE password_resets (
+    id_reset INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(50) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX(email),
+    FOREIGN KEY (email) REFERENCES empresa(email) ON DELETE CASCADE
+) ENGINE=InnoDB;
