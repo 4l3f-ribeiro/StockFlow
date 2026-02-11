@@ -227,6 +227,7 @@ li {
   border-radius: 10px;
   background-color: white;
   box-shadow: 0px 0px 15px rgba(128, 128, 128, 0.185);
+  flex-direction:column;
 }
 
 .formulario input{
@@ -235,8 +236,8 @@ li {
 }
 
 .formulario label{
-  font-family: Special Gothic Expanded One;
-  font-size: 13px;
+  font-family: Roboto;
+  font-size: 15px;
   color: #1F4F9C;
 }
 
@@ -260,12 +261,10 @@ input{
 }
 
 h2{
-  position: absolute;
   color: #1F4F9C;
   font-size: 30px;
   font-weight: 500;
   font-family: Special Gothic Expanded One;
-  margin-bottom: 29%;
 }
 
 #btnAtualizar{
@@ -279,6 +278,10 @@ h2{
   transform: translate(-50%,650%);
 }
 
+.buttons{
+  display: flex;
+  
+}
 
 
 

@@ -1,3 +1,28 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION['id_empresa'])) {
+  $nome = $_SESSION['nome_fantasia'];
+  
+}
+
+if (isset($_SESSION['cod_empresa'])) {
+  $nome = $_SESSION['nome_funcionario'];
+  
+}
+
+if (!empty($_SESSION['erro_email'])) {
+  echo "<p style='color:red;'>".$_SESSION['erro_email']."</p>";
+  unset($_SESSION['erro_email']);
+}
+if (!empty($_SESSION['erro_cnpj'])) {
+  echo "<p style='color:red;'>".$_SESSION['erro_cnpj']."</p>";
+  unset($_SESSION['erro_cnpj']);
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -23,7 +48,7 @@
 <body>
 
 <?php
-session_start();
+
 require "PHP/conexao.php";
 
 $id_empresa = $_SESSION['id_empresa'];
@@ -38,50 +63,118 @@ $result = $stmt->get_result();
 $empresa = $result->fetch_assoc();
 ?>
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-      <header>
-        <button class="back sidebar-toggler">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-      </header>
+<?php
 
-      <ul>
-        <li>
-          <a href="cadastro-veiculo.php" class="ul-obj"><span>
-            <i class="fa-solid fa-car fa-2x"></i>
-          </span>
-        <span class="text">Veiculos</span></a>
-        </li>
-        <li>
-          <a href="" class="ul-obj"><span>
-            <i class="fa-solid fa-file-contract fa-2x"></i>
-          </span>
-        <span class="text">Contratos</span></a>
-        </li>
-        <li>
-          <a href="pagina-funcionario.php" class="ul-obj"><span>
-            <i class="fa-solid fa-people-group fa-2x"></i>
-          </span>
-        <span class="text">Funcionarios</span></a>
-        </li>
-        <li>
-          <a href="" class="ul-obj"><span>
-            <i class="fa-solid fa-chart-simple fa-2x"></i>
-          </span>
-         <span class="text">Relatorios</span></a>
-        </li>
-        <li>
-          <a href="perfilEmpresa.php" class="ul-obj">
-          <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
-          <span class="text">Perfil</span></a>
-        </li>
-        <li>
-          <a href="PHP/sair.php" class="ul-obj">
-          <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
-          <span class="text">Sair</span></a>
-        </li>
-    </aside>
+
+if (isset($_SESSION['id_empresa'])):
+?>
+<aside class="sidebar">
+  <header>
+    <button class="back sidebar-toggler">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </header>
+
+  <ul>
+    <li>
+      <a href="inicial-gerente.php" class="ul-obj"><span>
+        <i class="fa-solid fa-house fa-2x"></i>
+      </span>
+      <span class="text">Inicio</span></a>
+    </li>
+    <li>
+      <a href="cadastro-veiculo.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Cadastro Veiculos</span></a>
+    </li>
+
+    <li>
+      <a href="veiculos_vendidos.php" class="ul-obj"><span>
+        <i class="fa-solid fa-hand-holding-dollar fa-2x"></i>
+      </span>
+      <span class="text">Vendidos</span></a>
+    </li>
+    <li>
+      <a href="pagina-funcionario.php" class="ul-obj"><span>
+        <i class="fa-solid fa-people-group fa-2x"></i>
+      </span>
+      <span class="text">Funcionários</span></a>
+    </li>
+    <li>
+      <a href="relatorioTeste.php" class="ul-obj"><span>
+        <i class="fa-solid fa-chart-simple fa-2x"></i>
+      </span>
+      <span class="text">Relatórios</span></a>
+    </li>
+    <li>
+      <a href="perfilEmpresa.php" class="ul-obj">
+        <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
+        <span class="text">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="PHP/sair.php" class="ul-obj">
+        <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
+        <span class="text">Sair</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+
+<?php elseif (isset($_SESSION['id_funcionario'])): ?>
+<aside class="sidebar">
+  <header>
+    <button class="back sidebar-toggler">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </header>
+
+  <ul>
+  <li>
+  <span>
+  <i class="fa-solid fa-circle-user fa-2x"></i>
+</span>
+<?php
+  echo "<span class='text'>$nome</span>";
+?>
+
+    </li>
+    <li>
+      <a href="inicial-funcionario.php" class="ul-obj"><span>
+        <i class="fa-solid fa-house fa-2x"></i>
+      </span>
+      <span class="text">Inicio</span></a>
+    </li>
+    <li>
+      <a href="cadastro-veiculo.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Cadastro Veiculos</span></a>
+    </li>
+
+    <li>
+      <a href="veiculos_vendidos.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Vendidos</span></a>
+    </li>
+    <li>
+      <a href="perfilFuncionario.php" class="ul-obj">
+        <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
+        <span class="text">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="PHP/sair.php" class="ul-obj">
+        <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
+        <span class="text">Sair</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+<?php endif; ?>
+
 
 <!-- CONTAINER -->
 <div class="container">
@@ -113,19 +206,19 @@ $empresa = $result->fetch_assoc();
         <div class="formss">
 
         <label>Endereço:</label>
-        <input type="text" name="endereco" id="endereco" required>
+        <input type="text" name="endereco" id="endereco" required maxlength="50">
 
         <label>Número:</label>
         <input type="text" name="numero" id="numero" required maxlength="7">
 
         <label>Bairro:</label>
-        <input type="text" name="bairro" id="bairro" required>
+        <input type="text" name="bairro" id="bairro" required maxlength="40">
 
         <label>Cidade:</label>
-        <input type="text" name="cidade" id="cidade" required>
+        <input type="text" name="cidade" id="cidade" required readonly maxlength="50">
 
         <label>Estado:</label>
-        <input type="text" name="estado" id="estado" required>
+        <input type="text" name="estado" id="estado" required readonly maxlength="5">
         </div>
          <button type="button" id="btnAtualizar" class="botoes">Atualizar Empresa</button> 
          <button type="button" id="btnDeletar" class="botoes">Deletar Empresa</button>
@@ -134,7 +227,6 @@ $empresa = $result->fetch_assoc();
 </div>
 
 <script>
-    // Preencher formulário com dados do PHP
     window.empresa = <?= json_encode($empresa); ?>;
 
     document.getElementById('id_empresa').value = empresa.id_empresa;

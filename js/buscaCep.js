@@ -1,6 +1,13 @@
 $(document).ready(function () {
+  
+
+  $("#cep").focus(function () {
+    
+    cepAnterior = $(this).val();
+  });
+
   $("#cep").blur(function () {
-    let cep = $(this).val().replace(/\D/g, ''); //numeros
+    let cep = $(this).val().replace(/\D/g, '');
 
     if (cep.length === 8) {
       $.ajax({
@@ -14,14 +21,14 @@ $(document).ready(function () {
             $("#estado").val(dados.uf);
           } else {
             alert("CEP não encontrado.");
+            $("#cep").val(cepAnterior); 
           }
         },
         error: function () {
           alert("Erro ao consultar o CEP.");
+          $("#cep").val(cepAnterior); 
         }
       });
-    } else if (cep.length > 0) {
-      alert("CEP inválido! Digite 8 números.");
     }
   });
 });

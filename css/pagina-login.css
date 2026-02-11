@@ -1,90 +1,216 @@
-*{
+
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
-body{
+
+.navbar {
+  background-color: #fff;
+  padding: 15px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 110px;
+}
+
+.buttons {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: 20px;
+}
+
+a {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  
+}
+
+.links {
+  color: #1f4f9c;
+  text-decoration: none;
+}
+
+.links:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.login {
+  background-color: #1f4f9c;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.login:hover {
+  background-color: #0ccfbf;
+  color: white;
+  text-decoration: none;
+}
+
+
+body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: rgb(221, 221, 219);
+  background-color: #dddddb;
+  padding-top: 100px; /* espaço para a navbar */
 }
 
-.container{
-  margin: 0;
-  padding: 20px;
-  width: 600px;
+.container {
+  background: #f6f6f5;
+  border-radius: 16px;
+  padding: 40px 30px;
   text-align: center;
-  background-color: rgb(221, 221, 219);
-  background: repeating-linear-gradient(to right, #dbdbd7,#d8d8d5);
+  width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(31, 79, 156, 0.2);
+}
+
+/* ======== TÍTULO ======== */
+h2 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+span {
+  color: #1f4f9c;
+}
+
+/* ======== IMAGEM LOGO ======== */
+img {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+/* ======== INPUTS ======== */
+.input-box {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+input.log {
+  width: 100%;
+  border: 1px solid #1f4f9c;
+  background: #f2f2f2;
   border-radius: 8px;
-  border: 1px solid rgba(31, 79, 156, 0.3);
+  padding: 10px 15px;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }
 
-span{
-  color: rgb(31, 79, 156);
+input.log:focus {
+  background-color: #eaf1ff;
+  border-color: #1f4f9c;
+  box-shadow: 0 0 6px rgba(31, 79, 156, 0.3);
 }
 
-h2{
-  font-family: Special Gothic Expanded One;
-  font-size: 25px;
-}
-
-input{
+/* ======== BOTÃO MOSTRAR SENHA ======== */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  color: #1f4f9c;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 5px;
+  border-radius: 50%;
   outline: none;
-  font-family: Roboto;
-  border: 1px solid rgb(31, 79, 156);
-  background: rgb(236, 236, 232);
-  border-radius: 6px;
-  margin-bottom: 5px;
-  padding: 5px 15px 5px 15px;
-  width: 280px;
 }
 
-input:focus{
-  background-color: rgba(77, 124, 199, 0.096);
-  transition: all 0.2s;
-}
-
-.button:focus{
+.toggle-password:focus {
   outline: none;
+  box-shadow: none;
 }
 
-.button{
+
+
+
+
+/* Responsivo para celular */
+@media (max-width: 480px) {
+  .toggle-password {
+    font-size: 14px;
+    right: 8px;
+  }
+}
+
+
+/* ======== BOTÃO LOGIN ======== */
+.button {
   border: none;
   cursor: pointer;
-  font-family: Roboto;
-  padding: 8px 10px 8px 10px;
-  background-color: rgb(31, 79, 156);
+  padding: 10px;
+  background-color: #1f4f9c;
   color: white;
   border-radius: 10px;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   text-transform: uppercase;
-  margin: 5px 0 0 0;
-  font-size: 13px;
-  width: 140px;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(31, 79, 156, 0.3);
 }
 
-p{
-  margin: 0;
+.button:hover {
+  background-color: #000;
+  transform: scale(1.02);
 }
 
-.button:hover{
-  background-color: black;
-  transition: all 0.2s;
+/* ======== LINKS ======== */
+p {
+  margin-top: 10px;
+  font-size: 14px;
 }
 
-.links{
-  font-family: Roboto;
-  color: rgb(31, 79, 156);
+p a.links {
+  color: #1f4f9c;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  text-decoration: none;
 }
 
-img{
-  width: 100px;
+p a.links:hover {
+  color: #000;
+  text-decoration: underline;
 }
+
+/* ======== RADIO BUTTONS PERSONALIZADOS ======== */
+.div-form-checks {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 .form-check {
-  display: inline-block;
-  margin: 8px;
+  width: 50%;
 }
 
 .form-check-input {
@@ -93,7 +219,6 @@ img{
 
 .form-check-label {
   display: inline-block;
-  padding: 14px 24px;
   border: 2px solid #ddd;
   border-radius: 8px;
   background: #fff;
@@ -102,21 +227,19 @@ img{
   font-size: 15px;
   color: #333;
   transition: all 0.3s ease;
-  user-select: none;
+  width: 100%;
+  padding: 10px 0;
 }
-
 
 .form-check-label:hover {
-  border-color: #007bff;
-  color: #007bff;
-  background: #f9faff;
+  border-color: #1f4f9c;
+  color: #1f4f9c;
+  background: #f0f5ff;
 }
-
 
 .form-check-input:checked + .form-check-label {
-  border-color: #007bff;
-  background: #007bff;
+  border-color: #1f4f9c;
+  background: #1f4f9c;
   color: #fff;
-  box-shadow: 0 4px 10px rgba(0,123,255,0.2);
+  box-shadow: 0 4px 10px rgba(31, 79, 156, 0.3);
 }
-

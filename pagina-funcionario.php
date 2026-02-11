@@ -6,7 +6,29 @@ if (isset($_SESSION['abrir_modal_funcionario_cadastrado']) && $_SESSION['abrir_m
     $abrirModal = true;
     unset($_SESSION['abrir_modal_funcionario_cadastrado']);
 }
+if (isset($_SESSION['id_empresa'])) {
+    $nome = $_SESSION['nome_fantasia'];
+    
+  }
+  
+  if (isset($_SESSION['cod_empresa'])) {
+    $nome = $_SESSION['nome_funcionario'];
+    
+  }
 ?>
+
+<?php
+
+if (!empty($_SESSION['erro_email'])) {
+    echo "<p style='color:red;'>".$_SESSION['erro_email']."</p>";
+    unset($_SESSION['erro_email']);
+}
+if (!empty($_SESSION['erro_cpf'])) {
+    echo "<p style='color:red;'>".$_SESSION['erro_cpf']."</p>";
+    unset($_SESSION['erro_cpf']);
+}
+?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,52 +72,134 @@ if (isset($_SESSION['abrir_modal_funcionario_cadastrado']) && $_SESSION['abrir_m
 </head>
 <body>
 
+<script>
+    
+    setTimeout(function() {
+        const erroEmail = document.getElementById('erro-email');
+        const erroCpf = document.getElementById('erro-cpf');
+
+        if (erroEmail) {
+            erroEmail.style.display = 'none';
+        }
+        if (erroCpf) {
+            erroCpf.style.display = 'none';
+        }
+    }, 5000);
+</script>
 
 
-<!-- SIDEBAR -->
+<?php
+
+
+if (isset($_SESSION['id_empresa'])):
+?>
 <aside class="sidebar">
-      <header>
-        <button class="back sidebar-toggler">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-      </header>
+  <header>
+    <button class="back sidebar-toggler">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </header>
 
-      <ul>
-        <li>
-          <a href="cadastro-veiculo.php" class="ul-obj"><span>
-            <i class="fa-solid fa-car fa-2x"></i>
-          </span>
-        <span class="text">Veiculos</span></a>
-        </li>
-        <li>
-          <a href="" class="ul-obj"><span>
-            <i class="fa-solid fa-file-contract fa-2x"></i>
-          </span>
-        <span class="text">Contratos</span></a>
-        </li>
-        <li>
-          <a href="pagina-funcionario.php" class="ul-obj"><span>
-            <i class="fa-solid fa-people-group fa-2x"></i>
-          </span>
-        <span class="text">Funcionarios</span></a>
-        </li>
-        <li>
-          <a href="" class="ul-obj"><span>
-            <i class="fa-solid fa-chart-simple fa-2x"></i>
-          </span>
-         <span class="text">Relatorios</span></a>
-        </li>
-        <li>
-          <a href="perfilEmpresa.php" class="ul-obj">
-          <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
-          <span class="text">Perfil</span></a>
-        </li>
-        <li>
-          <a href="PHP/sair.php" class="ul-obj">
-          <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
-          <span class="text">Sair</span></a>
-        </li>
-    </aside>
+  <ul>
+    <li>
+      <a href="inicial-gerente.php" class="ul-obj"><span>
+        <i class="fa-solid fa-house fa-2x"></i>
+      </span>
+      <span class="text">Inicio</span></a>
+    </li>
+    <li>
+      <a href="cadastro-veiculo.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Cadastro Veiculos</span></a>
+    </li>
+
+    <li>
+      <a href="veiculos_vendidos.php" class="ul-obj"><span>
+        <i class="fa-solid fa-hand-holding-dollar fa-2x"></i>
+      </span>
+      <span class="text">Vendidos</span></a>
+    </li>
+    <li>
+      <a href="pagina-funcionario.php" class="ul-obj"><span>
+        <i class="fa-solid fa-people-group fa-2x"></i>
+      </span>
+      <span class="text">Funcionários</span></a>
+    </li>
+    <li>
+      <a href="relatorioTeste.php" class="ul-obj"><span>
+        <i class="fa-solid fa-chart-simple fa-2x"></i>
+      </span>
+      <span class="text">Relatórios</span></a>
+    </li>
+    <li>
+      <a href="perfilEmpresa.php" class="ul-obj">
+        <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
+        <span class="text">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="PHP/sair.php" class="ul-obj">
+        <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
+        <span class="text">Sair</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+
+<?php elseif (isset($_SESSION['id_funcionario'])): ?>
+<aside class="sidebar">
+  <header>
+    <button class="back sidebar-toggler">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </header>
+
+  <ul>
+  <li>
+  <span>
+  <i class="fa-solid fa-circle-user fa-2x"></i>
+</span>
+<?php
+  echo "<span class='text'>$nome</span>";
+?>
+
+    </li>
+    <li>
+      <a href="inicial-funcionario.php" class="ul-obj"><span>
+        <i class="fa-solid fa-house fa-2x"></i>
+      </span>
+      <span class="text">Inicio</span></a>
+    </li>
+    <li>
+      <a href="cadastro-veiculo.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Cadastro Veiculos</span></a>
+    </li>
+
+    <li>
+      <a href="veiculos_vendidos.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Vendidos</span></a>
+    </li>
+    <li>
+      <a href="perfilFuncionario.php" class="ul-obj">
+        <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
+        <span class="text">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="PHP/sair.php" class="ul-obj">
+        <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
+        <span class="text">Sair</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+<?php endif; ?>
+
 
 <!-- CONTAINER -->
 <div class="container">
@@ -161,27 +265,31 @@ if (isset($_SESSION['abrir_modal_funcionario_cadastrado']) && $_SESSION['abrir_m
             <h2>Cadastro de <span class="espanta">Funcionário</span>.</h2>
 
             <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome" class="inps" required autocomplete="off">
+            <input type="text" name="nome" id="nome" class="inps" required autocomplete="off" maxlength="50" placeholder="Informe seu nome">
             <small class="error-message" id="error-nome"></small>
 
             <label for="cpf">CPF</label>
-            <input type="text" name="cpf" id="cpf" class="inps" required maxlength="11" autocomplete="off">
+            <input type="text" name="cpf" id="cpf" class="inps" required maxlength="11" autocomplete="off" placeholder="Informe seu cpf">
+
             <small class="error-message" id="error-cpf"></small>
 
             <label for="telefone">Telefone</label>
-            <input type="text" id="telefone" name="telefone" class="inps" required maxlength="11" autocomplete="off">
+            <input type="text" id="telefone" name="telefone" class="inps" required maxlength="11" autocomplete="off" placeholder="Informe seu telefone">
             <small class="error-message" id="error-telefone"></small>
 
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="inps" required autocomplete="off">
+            <input type="email" name="email" id="email" class="inps" required autocomplete="off" placeholder="Informe seu email">
             <small class="error-message" id="error-email"></small>
 
             <label for="senha">Senha</label>
-            <input type="password" name="senha" id="senha" class="inps" required autocomplete="off">
+            <input type="password" placeholder="Informe sua senha" id="senha" name="senha" autocomplete="off" class="inps">
+            <button type="button" class="toggle-password" data-target="senha" aria-label="Mostrar senha">Mostrar</button>
             <small class="error-message" id="error-senha"></small>
+            <div id="forcaSenha"></div>
 
-            <label for="consenha">Confirme a senha</label>
-            <input type="password" name="consenha" id="consenha" class="inps" required autocomplete="off" >
+            <label for="consenha">Confirme sua senha</label>
+            <input type="password" placeholder="Confirme sua senha" id="consenha" name="consenha" autocomplete="off" class="inps">
+            <button type="button" class="toggle-password" data-target="consenha" aria-label="Mostrar senha">Mostrar</button>
             <small class="error-message" id="error-consenha"></small>
 
             <input type="submit" id="btnCadastrar" value="Cadastrar" class="subButton">
@@ -204,13 +312,13 @@ if (isset($_SESSION['abrir_modal_funcionario_cadastrado']) && $_SESSION['abrir_m
                 <input type="email" id="consulta_email" readonly class="inpsData" name="consulta_email">
 
                 <label>Nome:</label>
-                <input type="text" id="consulta_nome" readonly class="inpsData" name="consulta_nome"> 
+                <input type="text" id="consulta_nome" readonly class="inpsData" name="consulta_nome" maxlength="30"> 
 
                 <label>Telefone:</label>
-                <input type="text" id="consulta_telefone" readonly class="inpsData" name="consulta_telefone">
+                <input type="text" id="consulta_telefone" readonly class="inpsData" name="consulta_telefone"maxlength="15">
 
                 <label>CPF:</label>
-                <input type="text" id="consulta_cpf" readonly class="inpsData" name="consulta_cpf">
+                <input type="text" id="consulta_cpf" readonly class="inpsData" name="consulta_cpf" maxlength="11">
 
                 <button type="button" class="excluir-botao" id="btnExcluir">Excluir</button>
                 <button type="button" class="edit-botao" id="btnAtualizar">Salvar</button>
@@ -219,17 +327,112 @@ if (isset($_SESSION['abrir_modal_funcionario_cadastrado']) && $_SESSION['abrir_m
     </div>
 </div>
 
-
-
 <script>
-
-
 document.addEventListener('DOMContentLoaded', function() {
-    const campos = [
-        'cpf', 'nome', 'telefone','email', 'senha', 'consenha'
-    ];
+    const campos = ['consulta_cpf', 'consulta_nome', 'consulta_telefone', 'consulta_email'];
+
+    
+    $('#telefone').mask('(00) 00000-00000');
+
+    function validarCampo(id) {
+        const campo = document.getElementById(id);
+        const valor = campo.value.trim();
+        let errorElement = document.getElementById('error-' + id);
+
+        if (!errorElement) {
+            errorElement = document.createElement('small');
+            errorElement.id = 'error-' + id;
+            errorElement.style.color = 'red';
+            campo.after(errorElement);
+        }
+        errorElement.textContent = '';
+
+        if (!valor) {
+            errorElement.textContent = 'Campo obrigatório';
+            return false;
+        }
+
+        switch(id) {
+            case 'consulta_cpf':
+                const cpfNumeros = valor.replace(/\D/g, '');
+                if (!/^\d{11}$/.test(cpfNumeros)) {
+                    errorElement.textContent = 'CPF inválido (11 dígitos)';
+                    return false;
+                }
+                break;
+
+            case 'consulta_telefone':
+                const telefoneNumeros = valor.replace(/\D/g, '');
+                if (telefoneNumeros.length < 11) {
+                    errorElement.textContent = 'Telefone inválido (mínimo 11 dígitos)';
+                    return false;
+                }
+                if (telefoneNumeros.length > 11) {
+                    errorElement.textContent = 'Telefone inválido (máximo 11 dígitos)';
+                    return false;
+                }
+                break;
+
+            case 'consulta_email':
+                const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!regexEmail.test(valor)) {
+                    errorElement.textContent = 'Email inválido';
+                    return false;
+                }
+                break;
+
+            case 'consulta_nome':
+                if (valor.length < 3) {
+                    errorElement.textContent = 'Nome muito curto';
+                    return false;
+                }
+                break;
+        }
+
+        return true;
+    }
 
    
+    campos.forEach(function(id) {
+        const input = document.getElementById(id);
+        input.addEventListener('input', function() {
+            validarCampo(id);
+        });
+        input.addEventListener('blur', function() {
+            validarCampo(id);
+        });
+    });
+
+    
+    const form = document.getElementById('loginForm2');
+    form.addEventListener('submit', function(e) {
+        let valido = true;
+        campos.forEach(function(id) {
+            if (!validarCampo(id)) valido = false;
+        });
+
+        if (!valido) {
+            e.preventDefault();
+            alert('Por favor, corrija os erros no formulário.');
+        }
+    });
+
+    
+    <?php if ($abrirModal): ?>
+        $(document).ready(function () {
+            $('.bd-example-modal-lg').modal('show');
+        });
+    <?php endif; ?>
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const campos = [
+        'cpf', 'nome', 'telefone', 'email', 'senha', 'consenha'
+    ];
+
+    
     $('#telefone').mask('(00) 00000-0000');
 
     function validarSenha(valor, errorElement) {
@@ -257,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const campo = document.getElementById(id);
         const valor = campo.value.trim();
         const errorElement = document.getElementById('error-' + id);
-        errorElement.textContent = ''; 
+        errorElement.textContent = '';
 
         if (!valor) {
             errorElement.textContent = 'Campo obrigatório';
@@ -267,10 +470,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
 
-        switch(id) {
-          case 'cpf':
-                if (!/^\d{11}$/.test(valor)) {
-                    errorElement.textContent = 'CPF inválido (11 dígitos numéricos)';
+        
+        switch (id) {
+            case 'cpf':
+                const cpfLimpo = valor.replace(/\D/g, '');
+                if (!/^\d{11}$/.test(cpfLimpo)) {
+                    errorElement.textContent = 'CPF inválido (deve conter 11 dígitos numéricos)';
                     return false;
                 }
                 break;
@@ -283,16 +488,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 break;
 
-           
-
             case 'email':
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
                     errorElement.textContent = 'Email inválido';
                     return false;
                 }
                 break;
-
-            
 
             case 'senha':
                 return validarSenha(valor, errorElement);
@@ -316,6 +517,8 @@ document.addEventListener('DOMContentLoaded', function() {
    
     campos.forEach(function(id) {
         const input = document.getElementById(id);
+        if (!input) return;
+
         input.addEventListener('input', function() {
             validarCampo(id);
         });
@@ -324,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-   
+    
     const form = document.getElementById('loginForm');
     form.addEventListener('submit', function(e) {
         let valido = true;
@@ -335,7 +538,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        
         const senhaValor = document.getElementById('senha').value.trim();
         const consenhaValor = document.getElementById('consenha').value.trim();
         if (senhaValor !== consenhaValor) {
@@ -350,11 +552,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     
-    <?php if ($abrirModal): ?>
+    <?php if (isset($abrirModal) && $abrirModal): ?>
         $(document).ready(function () {
             $('.bd-example-modal-lg').modal('show');
         });
     <?php endif; ?>
+});
+
+function togglePasswordVisibility(btn) {
+    const targetId = btn.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    if (!input) return;
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = 'Ocultar';
+        btn.setAttribute('aria-pressed', 'true');
+    } else {
+        input.type = 'password';
+        btn.textContent = 'Mostrar';
+        btn.setAttribute('aria-pressed', 'false');
+    }
+}
+
+// liga eventos aos botões já presentes no DOM
+document.querySelectorAll('.toggle-password').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        togglePasswordVisibility(btn);
+    });
+
+    // Suporte via teclado (Enter / Space)
+    btn.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            togglePasswordVisibility(btn);
+        }
+    });
 });
 
 </script>

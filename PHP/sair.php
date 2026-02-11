@@ -2,7 +2,7 @@
 session_start();
 session_unset();
 session_destroy();
-header("Location: ../pagina-inicial.php");
+header("Location: ../index.php");
 exit();
 
 ?>

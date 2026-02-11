@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="../css/atualizarEmpresa.css">
     <title>Exclusão de Produto</title>
   </head>
   <body>
@@ -38,6 +38,8 @@ $stmt->bind_param("i", $id_empresa);
 $stmt->execute();
 $result = $stmt->get_result();
 $empresa = $result->fetch_assoc();
+
+
 
 $email          = $empresa['email'];
 $cnpj           = $empresa['cnpj'];

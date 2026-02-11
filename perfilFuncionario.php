@@ -1,3 +1,15 @@
+<?php
+session_start();
+if (isset($_SESSION['id_empresa'])) {
+  $nome = $_SESSION['nome_fantasia'];
+  
+}
+
+if (isset($_SESSION['cod_empresa'])) {
+  $nome = $_SESSION['nome_funcionario'];
+  
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -22,7 +34,7 @@
   </head>
   <body>
   <?php
-session_start();
+
 
 require "PHP/conexao.php";
 
@@ -36,71 +48,146 @@ $result = $stmt->get_result();
 $funcionario = $result->fetch_assoc();
 ?>
 
-<aside class="sidebar">
-      <header>
-        <button class="back sidebar-toggler">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-      </header>
+<?php
 
-      <ul>
-        <li>
-          <a href="cadastro-veiculo.php" class="ul-obj"><span>
-            <i class="fa-solid fa-car fa-2x"></i>
-          </span>
-        <span class="text">Veiculos</span></a>
-        </li>
-        <li>
-          <a href="" class="ul-obj"><span>
-            <i class="fa-solid fa-file-contract fa-2x"></i>
-          </span>
-        <span class="text">Contratos</span></a>
-        </li>
-          <a href="PHP/sair.php" class="ul-obj">
-          <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
-          <span class="text">Sair</span></a>
-        </li>
-    </aside>
+
+if (isset($_SESSION['id_empresa'])):
+?>
+<aside class="sidebar">
+  <header>
+    <button class="back sidebar-toggler">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </header>
+
+  <ul>
+    <li>
+      <a href="inicial-gerente.php" class="ul-obj"><span>
+        <i class="fa-solid fa-house fa-2x"></i>
+      </span>
+      <span class="text">Inicio</span></a>
+    </li>
+   <li>
+      <a href="cadastro-veiculo.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Cadastro Veiculos</span></a>
+    </li>
+
+    <li>
+      <a href="veiculos_vendidos.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Vendidos</span></a>
+    </li>
+    <li>
+      <a href="pagina-funcionario.php" class="ul-obj"><span>
+        <i class="fa-solid fa-people-group fa-2x"></i>
+      </span>
+      <span class="text">Funcionários</span></a>
+    </li>
+    <li>
+      <a href="" class="ul-obj"><span>
+        <i class="fa-solid fa-chart-simple fa-2x"></i>
+      </span>
+      <span class="text">Relatórios</span></a>
+    </li>
+    <li>
+      <a href="perfilEmpresa.php" class="ul-obj">
+        <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
+        <span class="text">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="PHP/sair.php" class="ul-obj">
+        <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
+        <span class="text">Sair</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+
+<?php elseif (isset($_SESSION['id_funcionario'])): ?>
+<aside class="sidebar">
+  <header>
+    <button class="back sidebar-toggler">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </header>
+
+  <ul>
+  
+    <li>
+      <a href="inicial-funcionario.php" class="ul-obj"><span>
+        <i class="fa-solid fa-house fa-2x"></i>
+      </span>
+      <span class="text">Inicio</span></a>
+    </li>
+    <li>
+      <a href="cadastro-veiculo.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Cadastro Veiculos</span></a>
+    </li>
+
+    <li>
+      <a href="veiculos_vendidos.php" class="ul-obj"><span>
+        <i class="fa-solid fa-hand-holding-dollar fa-2x"></i>
+      </span>
+      <span class="text">Vendidos</span></a>
+    </li>
+    <li>
+      <a href="perfilFuncionario.php" class="ul-obj">
+        <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
+        <span class="text">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="PHP/sair.php" class="ul-obj">
+        <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
+        <span class="text">Sair</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+<?php endif; ?>
 
 
   
 
-    
 <div class="container">
-    <div class="formulario">
+  <div class="formulario">
     <h2 class="title">Informações do perfil</h2>
     <form id="Perfil" method="post">
 
-    <div class="formss">
-        <label id="id_funcionario_label">ID da Funcionario:</label>
+      <div class="formss">
+        <label>ID do Funcionário:</label>
         <input type="text" name="id_funcionario" id="id_funcionario" readonly>
 
         <label>Email:</label>
-        <input type="email" name="email" id="email" required >
+        <input type="email" name="email" id="email" readonly>
 
         <label>CPF:</label>
-        <input type="text" name="cpf" id="cpf" required>
+        <input type="text" name="cpf" id="cpf" readonly>
+      </div>
 
-
-      
-    </div>
-        <!-- separar -->
-
-        <div class="formss">
-
-        <label>Nome :</label>
-        <input type="text" name="nome" id="nome" required>
+      <div class="formss">
+        <label>Nome:</label>
+        <input type="text" name="nome" id="nome" readonly>
 
         <label>Telefone:</label>
-        <input type="text" name="telefone" id="telefone" required>
-        </div>
-         <button type="button" id="btnAtualizar" class="botoes">Atualizar Funcionario</button> 
+        <input type="text" name="telefone" id="telefone" readonly>
+      </div>
+
+      <!-- Botão escondido, já que o formulário é apenas de visualização -->
+      <button type="button" id="btnAtualizar" class="botoes" style="display: none;">Atualizar Funcionário</button> 
     </form>
-    </div>
+  </div>
 </div>
 
+
 <script>
-    // Preencher formulário com dados do PHP
+    
     window.funcionario = <?= json_encode($funcionario); ?>;
 
     document.getElementById('id_funcionario').value = funcionario.id_funcionario;
@@ -108,24 +195,20 @@ $funcionario = $result->fetch_assoc();
     document.getElementById('nome').value = funcionario.nome;
     document.getElementById('telefone').value = funcionario.telefone;
     document.getElementById('cpf').value = funcionario.cpf;
-
-    // Botões atualizar/deletar
-    const form = document.getElementById('Perfil');
-
-    document.getElementById('btnAtualizar').addEventListener('click', function () {
-        form.action = 'PHP/confirmarAtualizarFuncionario.php';
-        form.submit();
-    });
 </script>
 
 
-    <!-- JavaScript (Opcional) -->
-    <script src="js/perfilFuncionario.js"></script>
-    <script src="js/sidebar.js"></script>
+    
+    
     
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <!-- JavaScript (Opcional) -->
+     <script src="js/validarFuncionarioPerfil.js"></script>
+    <script src="js/perfilFuncionario.js"></script>
+    <script src="js/sidebar.js"></script>
   </body>
 </html>

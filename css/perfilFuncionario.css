@@ -3,16 +3,14 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-weight: 500;
     font-family: 'Roboto', sans-serif;
-    color: #1F4F9C;
   }
   
   /* Container centralizado com fundo suave */
   .container {
     min-height: 100vh;
     width: 100%;
-    background-color: #DDDDDB;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -152,18 +150,19 @@
   font-family: Roboto;
 }
 
-.escolhido{
-  background-color: #2361c4;
-  color: white;
-  border: 1px solid #3e78d4;
-}
-
 body {
   background: linear-gradient(#DDDDDB, #d1d1cd, #d1d1d0);
   display: flex;
   min-height: 100vh;
   align-items: center;
   justify-content: flex-start;
+}
+
+
+
+.sumir{
+  opacity: 0;
+  position: absolute;
 }
 
 /* ==== SIDEBAR ==== */
@@ -228,8 +227,8 @@ a {
   height: 50px;
   overflow: hidden;
   text-decoration: none;
-  font-weight: bold;
   transition: all 0.3s ease;
+  color: #1F4F9C;
 }
 
 a:hover {
@@ -289,5 +288,3 @@ li {
   color: white;
   background-color: #1F4F9C;
 }
-
-  

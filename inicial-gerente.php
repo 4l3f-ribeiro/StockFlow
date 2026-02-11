@@ -31,55 +31,172 @@
     <!-- <i class="fa-solid fa-circle-user fa-2x" style="color: #1f4f9c;"></i> -->
     <!-- <i class="fa-solid fa-arrow-left" style="color: #1f4f9c;"></i> -->
 
-    <aside class="sidebar">
-      <header>
-        <button class="back sidebar-toggler">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-      </header>
+    <?php
+session_start();
+if (isset($_SESSION['id_empresa'])) {
+  $nome = $_SESSION['nome_fantasia'];
+  
+}
 
-      <ul>
-        <li>
-          <a href="cadastro-veiculo.php" class="ul-obj"><span>
-            <i class="fa-solid fa-car fa-2x"></i>
-          </span>
-        <span class="text">Veiculos</span></a>
-        </li>
-        <li>
-          <a href="" class="ul-obj"><span>
-            <i class="fa-solid fa-file-contract fa-2x"></i>
-          </span>
-        <span class="text">Contratos</span></a>
-        </li>
-        <li>
-          <a href="pagina-funcionario.php" class="ul-obj"><span>
-            <i class="fa-solid fa-people-group fa-2x"></i>
-          </span>
-        <span class="text">Funcionarios</span></a>
-        </li>
-        <li>
-          <a href="" class="ul-obj"><span>
-            <i class="fa-solid fa-chart-simple fa-2x"></i>
-          </span>
-         <span class="text">Relatorios</span></a>
-        </li>
-        <li>
-          <a href="perfilEmpresa.php" class="ul-obj">
-          <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
-          <span class="text">Perfil</span></a>
-        </li>
-        <li>
-          <a href="PHP/sair.php" class="ul-obj">
-          <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
-          <span class="text">Sair</span></a>
-        </li>
-    </aside>
+if (isset($_SESSION['cod_empresa'])) {
+  $nome = $_SESSION['nome'];
+  
+}
+
+if (isset($_SESSION['id_empresa'])):
+?>
+<aside class="sidebar">
+  <header>
+    <button class="back sidebar-toggler">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </header>
+
+  <ul>
+    <li>
+      <a href="inicial-gerente.php" class="ul-obj"><span>
+        <i class="fa-solid fa-house fa-2x"></i>
+      </span>
+      <span class="text">Inicio</span></a>
+    </li>
+    <li>
+      <a href="cadastro-veiculo.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Cadastro Veiculos</span></a>
+    </li>
+
+    <li>
+      <a href="veiculos_vendidos.php" class="ul-obj"><span>
+        <i class="fa-solid fa-hand-holding-dollar fa-2x"></i>
+      </span>
+      <span class="text">Vendidos</span></a>
+    </li>
+
+    <li>
+      <a href="pagina-funcionario.php" class="ul-obj"><span>
+        <i class="fa-solid fa-people-group fa-2x"></i>
+      </span>
+      <span class="text">Funcionários</span></a>
+    </li>
+    <li>
+      <a href="relatorioTeste.php" class="ul-obj"><span>
+        <i class="fa-solid fa-chart-simple fa-2x"></i>
+      </span>
+      <span class="text">Relatórios</span></a>
+    </li>
+    <li>
+      <a href="perfilEmpresa.php" class="ul-obj">
+        <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
+        <span class="text">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="PHP/sair.php" class="ul-obj">
+        <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
+        <span class="text">Sair</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+
+<?php elseif (isset($_SESSION['id_funcionario'])): ?>
+<aside class="sidebar">
+  <header>
+    <button class="back sidebar-toggler">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+  </header>
+
+  <ul>
+  <li>
+  <span>
+  <i class="fa-solid fa-circle-user fa-2x"></i>
+</span>
+<?php
+  echo "<span class='text'>$nome</span>";
+?>
+
+    </li>
+    <li>
+      <a href="inicial-funcionario.php" class="ul-obj"><span>
+        <i class="fa-solid fa-house fa-2x"></i>
+      </span>
+      <span class="text">Inicio</span></a>
+    </li>
+    <li>
+      <a href="cadastro-veiculo.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Cadastro Veiculos</span></a>
+    </li>
+
+    <li>
+      <a href="veiculos_vendidos.php" class="ul-obj"><span>
+        <i class="fa-solid fa-car fa-2x"></i>
+      </span>
+      <span class="text">Vendidos</span></a>
+    </li>
+    <li>
+      <a href="perfilFuncionario.php" class="ul-obj">
+        <span><i class="fa-solid fa-circle-user fa-2x"></i></span>
+        <span class="text">Perfil</span>
+      </a>
+    </li>
+    <li>
+      <a href="PHP/sair.php" class="ul-obj">
+        <span><i class="fa-solid fa-right-from-bracket fa-2x"></i></span>
+        <span class="text">Sair</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+<?php endif; ?>
 
 
 
-   <div class="container my-4">
-  <div id="localVeiculos" class="row"></div>
+ 
+
+
+<div class="container my-4">
+   <div class="search-container">
+    <input type="text" id="buscaPlaca" placeholder="Buscar veículo pela placa..." />
+    <button id="btnBuscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
+    
+  <div id="localVeiculos" class="row">
+
+  </div>
 </div>
+
+<div class="container-view">
+  <div class="control" id="control">
+    
+  </div>
+
+  <div class="control-imagens" id="control-imagens">
+
+    <div class="slider">
+      <div class="slides" id="slides">
+
+      </div>
+
+      <div class="botoes-imagens">
+        <button class="prev" onclick="prevSlide()">&#10094</button>
+        <button class="next" onclick="nextSlide()">&#10095</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container-view-edit">
+  <div class="control-edit" id="control-edit">
+    
+  </div>
+</div>
+
+
 
 
 
@@ -95,6 +212,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="js/buscaCarro.js"></script>
-
   </body>
 </html>

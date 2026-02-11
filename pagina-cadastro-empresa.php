@@ -33,8 +33,6 @@ if (isset($_SESSION['abrir_modal_empresa_cadastrado']) && $_SESSION['abrir_modal
     .error-message {
       color: red;
       font-size: 0.9em;
-      margin-top: 2px;
-      margin-bottom: 8px;
       display: block;
     }
     #forcaSenha {
@@ -44,6 +42,18 @@ if (isset($_SESSION['abrir_modal_empresa_cadastrado']) && $_SESSION['abrir_modal
   </style>
 </head>
 <body>
+  
+    <nav class="navbar">
+      <img src="imagens/logo-sembgrecortada.png" class="logo">
+      <ul class="buttons">
+        <li><a href="index.php" class="links">Inicio</a></li>
+        <li><a href="pagina-login.php" class="login">Login</a></li>
+        
+      </ul>
+    </nav>
+
+
+
 <div class="modal fade bd-example-modal-lg" data-backdrop = "false" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content p-4">
@@ -62,11 +72,12 @@ if (isset($_SESSION['abrir_modal_empresa_cadastrado']) && $_SESSION['abrir_modal
   </div>
 </div>
   <div class="container">
-    <form id="loginForm" method="post" action="PHP/CadEmpresa.php" novalidate>
-      <div class="title">
+  <div class="title">
         <h2>Crie sua <span>conta</span></h2>
       </div>
-
+    <form id="loginForm" method="post" action="PHP/CadEmpresa.php" novalidate>
+      
+    <div class="campos">
       <div class="divs" id="dados-empresa">
         <label for="cnpj">CNPJ</label>
         <input type="text" placeholder="Informe seu CNPJ" id="cnpj" name="cnpj" maxlength="14" autocomplete="off">
@@ -95,7 +106,7 @@ if (isset($_SESSION['abrir_modal_empresa_cadastrado']) && $_SESSION['abrir_modal
 
       <div class="divs" id="metade">
         <label for="numero">N°</label>
-        <input type="number" placeholder="Informe seu N°" id="numero" name="numero" autocomplete="off">
+        <input type="text" placeholder="Informe seu N°" id="numero" name="numero"  autocomplete="off" maxlength="7">
         <small class="error-message" id="error-numero"></small>
 
         <label for="bairro">Bairro</label>
@@ -112,16 +123,21 @@ if (isset($_SESSION['abrir_modal_empresa_cadastrado']) && $_SESSION['abrir_modal
 
         <label for="senha">Senha</label>
         <input type="password" placeholder="Informe sua senha" id="senha" name="senha" autocomplete="off">
+        <button type="button" class="toggle-password mostrar-senha" data-target="senha" aria-label="Mostrar senha">Mostrar</button>
         <small class="error-message" id="error-senha"></small>
         <div id="forcaSenha"></div>
 
         <label for="consenha">Confirme sua senha</label>
         <input type="password" placeholder="Confirme sua senha" id="consenha" name="consenha" autocomplete="off">
+        <button type="button" class="toggle-password mostrar-senha-confirm" data-target="consenha" aria-label="Mostrar senha">Mostrar</button>
         <small class="error-message" id="error-consenha"></small>
-
+        </div>
+        </div>
+        <div class="btn">
         <input type="submit" id="btnCadastrar" value="Cadastrar">
         <p>Ir para o <a href="pagina-login.php">Login.</a></p>
-      </div>
+        </div>
+      
     </form>
   </div>
 
@@ -136,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
    
     $('#telefone').mask('(00) 00000-0000');
+    $('#cnpj').mask('00.000.000/0000-00');
 
     function validarSenha(valor, errorElement) {
         const forcaSenha = document.getElementById('forcaSenha');
@@ -173,12 +190,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         switch(id) {
-            case 'cnpj':
-                if (!/^\d{14}$/.test(valor)) {
-                    errorElement.textContent = 'CNPJ inválido (14 dígitos numéricos)';
-                    return false;
-                }
-                break;
+           case 'cnpj':
+    
+            const cnpjLimpo = valor.replace(/\D/g, '');
+
+            if (!/^\d{14}$/.test(cnpjLimpo)) {
+        errorElement.textContent = 'CNPJ inválido (14 dígitos numéricos)';
+        return false;
+      }
+    break;
+    case 'numero':
+      const apenasNumeros = valor.replace(/\D/g, '');
+
+if (!/^\d+$/.test(apenasNumeros) ) {
+  errorElement.textContent = 'Digite apenas números';
+  return false;
+}
+break;
 
             case 'telefone':
                 const telefoneNumeros = valor.replace(/\D/g, '');
@@ -270,6 +298,38 @@ document.addEventListener('DOMContentLoaded', function() {
             $('.bd-example-modal-lg').modal('show');
         });
     <?php endif; ?>
+});
+
+function togglePasswordVisibility(btn) {
+    const targetId = btn.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    if (!input) return;
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = 'Ocultar';
+        btn.setAttribute('aria-pressed', 'true');
+    } else {
+        input.type = 'password';
+        btn.textContent = 'Mostrar';
+        btn.setAttribute('aria-pressed', 'false');
+    }
+}
+
+// liga eventos aos botões já presentes no DOM
+document.querySelectorAll('.toggle-password').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        togglePasswordVisibility(btn);
+    });
+
+    // Suporte via teclado (Enter / Space)
+    btn.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            togglePasswordVisibility(btn);
+        }
+    });
 });
 
 </script>

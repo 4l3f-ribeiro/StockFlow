@@ -15,6 +15,7 @@ function consulta(botao) {
         document.getElementById('consulta_nome').value = funcionario.nome;
         document.getElementById('consulta_telefone').value = funcionario.telefone;
         document.getElementById('consulta_cpf').value = funcionario.cpf;
+        
     })
     .catch(error => {
         console.error('Erro ao buscar dados do funcionário:', error);

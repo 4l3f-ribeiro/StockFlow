@@ -37,6 +37,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             font-weight: bold;
             margin-top: 5px;
         }
+        .toggle-password {
+  border: none;
+  background: #1f4f9c;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 3px 3px;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+  outline: none;
+  margin-top: 5px;
+}
+
+.toggle-password:hover {
+  background: #2a63c4;
+}
+
+.toggle-password:active {
+  background: #163b7a;
+}
+
+.toggle-password:focus {
+  outline: none;
+  box-shadow: none;
+}
     </style>
 </head>
 <body>
@@ -49,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <div class="form-group">
                     <label for="senha">Nova Senha</label>
                     <input type="password" class="form-control" placeholder="Informe sua senha" id="senha" name="senha" autocomplete="off">
+                    <button type="button" class="toggle-password" data-target="senha" aria-label="Mostrar senha">Mostrar</button>
                     <small class="error-message" id="error-senha"></small>
                     <div id="forcaSenha"></div>
                 </div>
@@ -56,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <div class="form-group">
                     <label for="consenha">Confirme sua Senha</label>
                     <input type="password" class="form-control" placeholder="Confirme sua senha" id="consenha" name="consenha" autocomplete="off">
+                    <button type="button" class="toggle-password" data-target="consenha" aria-label="Mostrar senha">Mostrar</button>
                     <small class="error-message" id="error-consenha"></small>
                 </div>
 
@@ -137,6 +164,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
         });
     });
+
+    function togglePasswordVisibility(btn) {
+    const targetId = btn.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    if (!input) return;
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = 'Ocultar';
+        btn.setAttribute('aria-pressed', 'true');
+    } else {
+        input.type = 'password';
+        btn.textContent = 'Mostrar';
+        btn.setAttribute('aria-pressed', 'false');
+    }
+}
+
+// liga eventos aos botões já presentes no DOM
+document.querySelectorAll('.toggle-password').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        togglePasswordVisibility(btn);
+    });
+
+    // Suporte via teclado (Enter / Space)
+    btn.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            togglePasswordVisibility(btn);
+        }
+    });
+});
     </script>
 </body>
 </html>

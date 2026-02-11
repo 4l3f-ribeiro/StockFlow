@@ -1,19 +1,12 @@
 <?php
-
-//informações --->
-
 require "conexao.php"; 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['botaoId'])) {
     $id_funcionario = trim($_POST['botaoId']);
-
    
-   
-
-    // Incluí o id_funcionario no SELECT também
     $sql = "SELECT id_funcionario, email, nome, telefone, cpf FROM funcionario WHERE id_funcionario = ?";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id_funcionario); 
+    $stmt->bind_param("i", $id_funcionario);
     $stmt->execute();
     $result = $stmt->get_result();
 

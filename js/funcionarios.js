@@ -27,6 +27,12 @@ document.addEventListener("keydown", event => {
 users.forEach(user => {
   user.addEventListener("click", () => {
     divConsulta.classList.add("consultaShow");
+    const editAtivo = edit.classList.contains("edit-click");
+    const deleteAtivo = trash.classList.contains("trash-click");
+
+    campos.forEach(f => {
+      f.readOnly = !(editAtivo && !deleteAtivo);
+    });
   });
 });
 
@@ -38,7 +44,7 @@ document.addEventListener("keydown", event => {
   if ((event.key === "q" || event.key === "Q") && !form.classList.contains("show")) {
     const consulta = document.querySelector(".consultaDados");
 
-    if (consulta) {
+    if (consulta && !divConsulta.classList.contains("consultaShow")) {
       // ativa/desativa delete
       trash.classList.toggle("trash-click");
       divConsulta.classList.remove("consultaShow");
@@ -55,6 +61,13 @@ document.addEventListener("keydown", event => {
         useres.classList.remove("user-edit");
       });
     }
+    campos.forEach(fields => {
+    if(trash.classList.contains("trash-click")){ // detectar classe em um elemento
+      fields.readOnly = true;
+    }else{
+      fields.readOnly = false;
+    }
+    });
   }
 });
 
@@ -89,12 +102,10 @@ document.addEventListener("keydown", event=>{
    if ((event.key === "e" || event.key === "E") && !form.classList.contains("show")) {
     const consulta = document.querySelector(".consultaDados");
     
-    if (consulta) {
+    if (consulta && !divConsulta.classList.contains("consultaShow")) {
       edit.classList.toggle("edit-click");
       divConsulta.classList.remove("consultaShow");
       consulta.classList.toggle("consultaEdit");
-
-      campo();
 
       consulta.classList.remove("consultaDelete");
       trash.classList.remove("trash-click");
@@ -106,6 +117,14 @@ document.addEventListener("keydown", event=>{
       useres.classList.remove("user-delete");
     });
     }
+    // campo();
+    campos.forEach(fields => {
+    if(edit.classList.contains("edit-click")){ // detectar classe em um elemento
+      fields.readOnly = false;
+    }else{
+      fields.readOnly = true;
+    }
+    });
   }
 });
 
@@ -134,9 +153,9 @@ edit.addEventListener("click", () => {
 function campo(){
 campos.forEach(fields => {
   if(edit.classList.contains("edit-click")){ // detectar classe em um elemento
-    fields.readOnly = !fields.readOnly;
+    fields.readOnly = true;
   }else{
-    fields.readOnly = !fields.readOnly;
+    fields.readOnly = false;
   }
 });
 }

@@ -20,19 +20,24 @@ if ($stmt) {
     $stmt->bind_param("i", $id_empresa);
 
     if ($stmt->execute()) {
-        echo "<script> 
-                alert('Excluído com sucesso!'); 
-                setTimeout(function(){
-                    window.location.href='../pagina-inicial.php';
-                }, 500);
-              </script>";
+        // echo "<script> 
+        //         alert('Excluído com sucesso!'); 
+        //         setTimeout(function(){
+        //             window.location.href='../pagina-inicial.php';
+        //         }, 500);
+        //       </script>";
+              $tipo = 3;
+              header("Location: ../avisos.php?i=$tipo");
     } else {
-        echo "<script> 
-                alert('Erro ao excluir!'); 
-                setTimeout(function(){
-                    window.location.href='../perfil-empresa.php';
-                }, 1000);
-              </script>";
+        // echo "<script> 
+        //         alert('Erro ao excluir!'); 
+        //         setTimeout(function(){
+        //             window.location.href='../perfil-empresa.php';
+        //         }, 1000);
+        //       </script>";
+        
+              $tipo = 4;
+              header("Location: ../avisos.php?i=$tipo");
     }
 
     $stmt->close();
