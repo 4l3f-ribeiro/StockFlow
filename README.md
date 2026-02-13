@@ -22,12 +22,12 @@ Atuei diretamente no desenvolvimento frontend e backend das telas públicas do s
 
 🔹 Frontend
 
-Desenvolvimento completo da tela inicial com cards dinâmicos
-Implementação da página de detalhes do veículo
-Implementação da página de detalhes da marca
-Criação das telas pré-login
-Estruturação de layout responsivo
-Integração visual com dados dinâmicos do backend
+Desenvolvimento completo da tela inicial com cards dinâmicos;
+Implementação da página de detalhes do veículo;
+Implementação da página de detalhes da marca;
+Criação das telas pré-login;
+Estruturação de layout responsivo;
+Integração visual com dados dinâmicos do backend.
 
 ## Funcionalidades
 
@@ -58,7 +58,6 @@ Integração visual com dados dinâmicos do backend
 ## Conceitos Aplicados
 
 - Separação entre frontend e backend
-- Manipulação dinâmica de dados
 - Organização visual 
 - Estruturação de layout responsivo
 - Trabalho em equipe e divisão de responsabilidades
@@ -72,7 +71,7 @@ Integração visual com dados dinâmicos do backend
 
 ## Organização e Produto
 
-Responsável pela documentação técnica do projeto
-Definição da identidade visual e padronização de cores
-Criação da logo e diretrizes visuais
-Estruturação formal da apresentação do TCC
+Responsável pela documentação técnica do projeto;
+Definição da identidade visual e padronização de cores;
+Criação da logo e diretrizes visuais;
+Estruturação formal da apresentação do TCC.
