@@ -12,6 +12,8 @@ O sistema permite a listagem dinâmica de veículos e marcas, visualização det
 Atuei diretamente no desenvolvimento frontend e backend das telas públicas do sistema.
 
 - Implementação da lógica de listagem dinâmica de veículos e marcas
+- Participação na definição da estrutura inicial do banco de dados
+- Modelagem inicial das tabelas e organização das entidades do sistema
 - Implementação de filtros e tratamento de parâmetros
 - Implementação da lógica de imagens
 - Implementação de redirecionamento para contato via WhatsApp
@@ -59,6 +61,8 @@ Integração visual com dados dinâmicos do backend.
 ## Conceitos Aplicados
 
 - Separação entre frontend e backend
+- Modelagem básica de banco de dados
+- Estruturação de entidades e relacionamentos
 - Organização visual 
 - Estruturação de layout responsivo
 - Trabalho em equipe e divisão de responsabilidades
