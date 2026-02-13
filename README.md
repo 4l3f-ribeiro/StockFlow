@@ -52,6 +52,7 @@ Integração visual com dados dinâmicos do backend.
 
 - Tela inicial com cards dinâmicos
 - Página de detalhes do veículo
+- Página de acesso à marca
 - Telas de acesso ao sistema
 - Integração com backend para exibição de dados
 
